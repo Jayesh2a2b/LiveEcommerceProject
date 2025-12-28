@@ -140,20 +140,37 @@ public class Login extends Base {
 
 	@Test(priority = 12)
 	public void VerifyTheNumberOfUnsucessfulLoginAttemps() {
-		loginPage.enterEmailIntoEmailAddressField(prop.getProperty("InvalidEmail"));
-		loginPage.enterPasswordIntoPasswordField(prop.getProperty("PasswordWithOneCharacter"));
-		loginPage.clickOnLoginButton();
+		
+	    for(int i = 0; i < 6; i++) {
+	        loginPage = new LoginPage(driver);  // reinitialize elements after refresh
+	        loginPage.loginIntoApplication(
+	            prop.getProperty("ValidEmail"),
+	            prop.getProperty("CONDIFFPWD")
 
-		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
-		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
-		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
-		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
-		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
-		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
+	            
+	        );
+
+	    }
+	    //stale element exception gives
+//		loginPage.enterEmailIntoEmailAddressField(prop.getProperty("InvalidEmail"));
+//		loginPage.enterPasswordIntoPasswordField(prop.getProperty("PasswordWithOneCharacter"));
+//		loginPage.clickOnLoginButton();
+//
+//		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
+//		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
+//		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
+//		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
+//		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
+//		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("CONDIFFPWD"));
 
 //		String expectedWarningMsg = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
 //		Assert.assertEquals(loginPage.getTextOfUnsucessfulAttemptsWarningMsg(), expectedWarningMsg);
 		Assert.assertTrue(loginPage.unsuccessfulWarningMsgAvailableOnPage());
+	    // STEP 2: re attempt — should still show warning (cannot increase attempts)
+	    loginPage = new LoginPage(driver);
+	    loginPage.loginIntoApplication(prop.getProperty("ValidEmail"),prop.getProperty("CONDIFFPWD"));
+	    Assert.assertTrue(loginPage.unsuccessfulWarningMsgAvailableOnPage());
+
 	}
 
 	@Test(priority = 13)
@@ -181,7 +198,7 @@ public class Login extends Base {
 
 	@Test(priority = 16)
 	public void VerifyLoggingIntoTheApplicationAfterChangingThePassword() {
-		myAccountPage = loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("OldPWD"));
+		myAccountPage = loginPage.loginIntoApplication(prop.getProperty("ExistingEmailTwo"), prop.getProperty("OldPWD"));
 		changePasswordPage = myAccountPage.clickOnChangeYourPasswordOption();
 		changePasswordPage.enterNewPasswordIntoPasswordField(prop.getProperty("NewPWD"));
 		changePasswordPage.enterNewPasswordIntoConPasswordField(prop.getProperty("NewPWD"));
@@ -195,9 +212,9 @@ public class Login extends Base {
 		headerOptions = homePage.getHeaderOptions();
 		loginPage = headerOptions.navigateToLoginPage();
 		loginPage.didWeNavigateToLoginPage();
-		loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("OldPWD"));
+		loginPage.loginIntoApplication(prop.getProperty("ExistingEmailTwo"), prop.getProperty("OldPWD"));
 		Assert.assertTrue(loginPage.pageLevelWarningMsg());
-		myAccountPage = loginPage.loginIntoApplication(prop.getProperty("ExistingEmail"), prop.getProperty("NewPWD"));
+		myAccountPage = loginPage.loginIntoApplication(prop.getProperty("ExistingEmailTwo"), prop.getProperty("NewPWD"));
 		Assert.assertTrue(myAccountPage.didWeNavigateToMYAccountPage());
 		swapPasswords(prop);
 	}

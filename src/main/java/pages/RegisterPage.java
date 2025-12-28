@@ -105,7 +105,7 @@ public class RegisterPage extends RootPage {
 	}
 
 	public String getEmailValidationMessage() {
-		return elementUtilities.getElementDomAttribute(emailField, "validationMessage");
+		return elementUtilities.getElementAttribute(emailField, "validationMessage");
 		//return emailField.getAttribute("validationMessage");
 	}
 

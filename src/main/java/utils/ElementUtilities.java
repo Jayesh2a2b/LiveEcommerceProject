@@ -56,6 +56,11 @@ public boolean isElementDisplayed(WebElement element)
 	}
 	return b;
 }
+public String getElementAttribute(WebElement element,String attributeName)
+{
+	return element.getAttribute(attributeName);
+}
+
 
 public String getElementDomAttribute(WebElement element,String attributeName)
 {

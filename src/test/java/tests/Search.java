@@ -5,6 +5,7 @@ import static org.testng.Assert.assertEquals;
 import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -13,9 +14,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.Base;
+import pages.FooterOptions;
 import pages.HeaderOptions;
 import pages.ProductComparisonPage;
 import pages.ProductDisplayPage;
+import pages.SearchPage;
 import utils.CommonUtilities;
 
 public class Search extends Base {
@@ -32,7 +35,7 @@ public class Search extends Base {
 	public void teardowm() {
 		closeBrowser(driver);
 	}
- 
+
 	@Test(priority = 1)
 	public void VerifySearchingWithAnExistingProductName() {
 		headerOptions.enterSearchProductIntoSearchField(prop.getProperty("ExistingProduct"));
@@ -152,18 +155,20 @@ public class Search extends Base {
 		Assert.assertTrue(searchPage.isAddToCartSuccessStatusAvailableOnPage());
 		refreshPage(driver);
 		searchPage.clickOnAddToWishListOption();
-		expected = "You must login or create an account to save "+prop.getProperty("ExistingProductThree")+" to your wish list!";
+		expected = "You must login or create an account to save " + prop.getProperty("ExistingProductThree")
+				+ " to your wish list!";
 		Assert.assertTrue(searchPage.getPageLevelSuccessMsg().contains(expected));
 		// Assert.assertTrue(searchPage.isWishlistStatusAvailableOnPage());
 		refreshPage(driver);
 		searchPage.clickOnCompareThisProductOption();
-		expected = "Success: You have added "+prop.getProperty("ExistingProductThree")+" to your product comparison!";
+		expected = "Success: You have added " + prop.getProperty("ExistingProductThree")
+				+ " to your product comparison!";
 		Assert.assertTrue(searchPage.getPageLevelSuccessMsg().contains(expected));
 		Assert.assertTrue(searchPage.isProductComparisonStatusAvailableOnPage());
 		productDisplayPage = searchPage.clickOnProductOneImage();
 		Assert.assertTrue(productDisplayPage.didWeNavigateToProductDisplayPage());
 		navigateBackInBrowser(driver);
-		productDisplayPage=searchPage.clickOnProductName();
+		productDisplayPage = searchPage.clickOnProductName();
 		Assert.assertTrue(productDisplayPage.isAddToCartOptionAvailableOnPage());
 		Assert.assertTrue(productDisplayPage.didWeNavigateToProductDisplayPage());
 		navigateBackInBrowser(driver);
@@ -173,45 +178,48 @@ public class Search extends Base {
 		searchPage.clickOnGridOption();
 		Assert.assertTrue(searchPage.getProductCount() == 1);
 		searchPage.clickOnAddToCartOption();
-		 expected = "Success: You have added " + prop.getProperty("ExistingProductThree")
-				+ " to your shopping cart!";
+		expected = "Success: You have added " + prop.getProperty("ExistingProductThree") + " to your shopping cart!";
 		// Verification checkPoint 1
 		Assert.assertTrue(searchPage.getPageLevelSuccessMsg().contains(expected));
-		// Verification checkpoint 1 alternate 
+		// Verification checkpoint 1 alternate
 		Assert.assertTrue(searchPage.isAddToCartSuccessStatusAvailableOnPage());
 		refreshPage(driver);
 		searchPage.clickOnAddToWishListOption();
-		expected = "You must login or create an account to save "+prop.getProperty("ExistingProductThree")+" to your wish list!";
+		expected = "You must login or create an account to save " + prop.getProperty("ExistingProductThree")
+				+ " to your wish list!";
 		Assert.assertTrue(searchPage.getPageLevelSuccessMsg().contains(expected));
-		// Assert.assertTrue(searchPage.isWishlistStatusAvailableOnPage()); // Verification checkpoint alternate 
+		// Assert.assertTrue(searchPage.isWishlistStatusAvailableOnPage()); //
+		// Verification checkpoint alternate
 		refreshPage(driver);
 		searchPage.clickOnCompareThisProductOption();
-		expected = "Success: You have added "+prop.getProperty("ExistingProductThree")+" to your product comparison!";
+		expected = "Success: You have added " + prop.getProperty("ExistingProductThree")
+				+ " to your product comparison!";
 		Assert.assertTrue(searchPage.getPageLevelSuccessMsg().contains(expected));
 		Assert.assertTrue(searchPage.isProductComparisonStatusAvailableOnPage());
 		productDisplayPage = searchPage.clickOnProductOneImage();
 		Assert.assertTrue(productDisplayPage.didWeNavigateToProductDisplayPage());
 		navigateBackInBrowser(driver);
-		productDisplayPage=searchPage.clickOnProductName();
+		productDisplayPage = searchPage.clickOnProductName();
 		Assert.assertTrue(productDisplayPage.isAddToCartOptionAvailableOnPage());
-		Assert.assertTrue(productDisplayPage.didWeNavigateToProductDisplayPage());	
+		Assert.assertTrue(productDisplayPage.didWeNavigateToProductDisplayPage());
 	}
-	@Test(priority=12)
-	public void VerifyListAndGridViewsWhenMultipleProductsAreDisplayedInTheSearchResults()
-	{
+
+	@Test(priority = 12)
+	public void VerifyListAndGridViewsWhenMultipleProductsAreDisplayedInTheSearchResults() {
 		searchPage = headerOptions.clickOnSearchButton();
 		searchPage.enterIntoSearchCriteriaField(prop.getProperty("ExistingProductTwo"));
 		searchPage.clickOnSearchButton();
 		Assert.assertTrue(searchPage.didWeNavigateToSearchPage());
-		Assert.assertTrue(searchPage.getProductCount()>1);
+		Assert.assertTrue(searchPage.getProductCount() > 1);
 		searchPage.clickOnListOption();
-		Assert.assertTrue(searchPage.getProductCount()>1);
-		searchPage.clickOnGridOption();;
-		Assert.assertTrue(searchPage.getProductCount()>1);
+		Assert.assertTrue(searchPage.getProductCount() > 1);
+		searchPage.clickOnGridOption();
+		;
+		Assert.assertTrue(searchPage.getProductCount() > 1);
 	}
-	@Test(priority=13)
-	public void VerifyNavigatingToProductComparePageFromSearchResultsPage()
-	{
+
+	@Test(priority = 13)
+	public void VerifyNavigatingToProductComparePageFromSearchResultsPage() {
 		searchPage = headerOptions.clickOnSearchButton();
 		searchPage.enterIntoSearchCriteriaField(prop.getProperty("ExistingProductThree"));
 		searchPage.clickOnSearchButton();
@@ -219,55 +227,115 @@ public class Search extends Base {
 		Assert.assertTrue(productComparisonPage.didWeNavigateToProductComparisonPage());
 
 	}
-	@Test
-	public void VerifySortingOptionInSearchResultPageByDefaultOptoion()
-	{ 
+
+	@Test(priority = 14)
+	public void VerifySortingOptionInSearchResultPageByDefaultOptoion() {
 		searchPage = headerOptions.clickOnSearchButton();
 		searchPage.enterIntoSearchCriteriaField(prop.getProperty("ExistingProductTwo"));
 		searchPage.clickOnSearchButton();
 		searchPage.clickOnListOption();
-		Assert.assertTrue(searchPage.getProductCount()>1);
+		Assert.assertTrue(searchPage.getProductCount() > 1);
 		searchPage.selectSortOptionInDropdownField("Default");
 		Assert.assertTrue(searchPage.didProductsGotDisplayedInAscendingOrder());
 	}
-	@Test
-	public void VerifySortingOptionInSearchResultPageByDesendingName()
-	{ 
+
+	@Test(priority = 15)
+	public void VerifySortingOptionInSearchResultPageByDesendingName() {
 		searchPage = headerOptions.clickOnSearchButton();
 		searchPage.enterIntoSearchCriteriaField(prop.getProperty("ExistingProductTwo"));
 		searchPage.clickOnSearchButton();
 		searchPage.clickOnListOption();
-		Assert.assertTrue(searchPage.getProductCount()>1);
+		Assert.assertTrue(searchPage.getProductCount() > 1);
 		searchPage.selectSortOptionInDropdownField("Name (Z - A)");
 		Assert.assertTrue(searchPage.didProductsGotDisplayedInSearchPageInDesendingOrder());
 	}
-	@Test
-	public void VerifySortingOptionPriceInAscendingOrder()
-	{
+
+	@Test(priority = 16)
+	public void VerifySortingOptionPriceInAscendingOrder() {
 		searchPage = headerOptions.clickOnSearchButton();
 		searchPage.enterIntoSearchCriteriaField(prop.getProperty("ExistingProductTwo"));
 		searchPage.clickOnSearchButton();
 		searchPage.clickOnListOption();
-		Assert.assertTrue(searchPage.getProductCount()>1);
+		Assert.assertTrue(searchPage.getProductCount() > 1);
 		searchPage.selectSortOptionInDropdownField("Price (Low > High)");
 		Assert.assertTrue(searchPage.didProductsGotDisplayedInSearchPageSortedPriceInAscendingOrder());
 
-	
 	}
-	
-	@Test
-	public void VerifySortingOptionPriceInDescendingOrder()
-	{
+
+	@Test(priority = 17)
+	public void VerifySortingOptionPriceInDescendingOrder() {
 		searchPage = headerOptions.clickOnSearchButton();
 		searchPage.enterIntoSearchCriteriaField(prop.getProperty("ExistingProductTwo"));
 		searchPage.clickOnSearchButton();
 		searchPage.clickOnListOption();
-		Assert.assertTrue(searchPage.getProductCount()>1);
+		Assert.assertTrue(searchPage.getProductCount() > 1);
 		searchPage.selectSortOptionInDropdownField("Price (High > Low)");
 		Assert.assertTrue(searchPage.didProductsGotDisplayedInSearchPageSortedPriceInDescendingOrder());
 
-	
 	}
 
-	
+	@Test
+	public void VerifySearchTextboxFieldAndTheButtonHavingSearchIconAreDisplayedOnAllThePageOfTheApplication() {
+
+	}
+
+	@Test
+	public void VerifyWeCanUseAllTheOptionsOfSearchFunctionalityUsingTheKeybaordKeys() {
+
+		actions = getActions(driver);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 9);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 21);
+		typeTextUsingActions(actions, prop.getProperty("ExistingProductTwo"));
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ARROW_DOWN, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.SPACE, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 2);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 26);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		searchPage = new SearchPage(driver);
+		Assert.assertTrue(searchPage.isExistingProductTwoIMacAvailableOnPage());
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		productComparisonPage = new ProductComparisonPage(driver);
+		Assert.assertTrue(productComparisonPage.didWeNavigateToProductComparisonPage());
+		navigateBackInBrowser(driver);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ARROW_DOWN, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 30);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ARROW_DOWN, 2);
+		//actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 31);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		productDisplayPage = new ProductDisplayPage(driver);
+		Assert.assertTrue(productDisplayPage.didWeNavigateToProductDisplayPage());
+		navigateBackInBrowser(driver);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 2);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		Assert.assertTrue(searchPage.isAddToCartSuccessStatusAvailableOnPage());
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		Assert.assertTrue(searchPage.isWishlistStatusAvailableOnPage());
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 1);
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		Assert.assertTrue(searchPage.isProductComparisonStatusAvailableOnPage());
+
+
+	}
+	@Test
+	public void VerifyNavigatingToSearchPageFromTheSiteMapPage()
+	{
+		footerOptions=new FooterOptions(driver);
+		siteMapPage=footerOptions.clickOnSiteMap();
+		Assert.assertTrue(siteMapPage.didWeNavigateToSiteMapPage());
+		searchPage=siteMapPage.clickOnSearchOptionInSiteMapPage();
+		Assert.assertTrue(searchPage.didWeNavigateToSearchPage());
+		
+		
+	}
 }

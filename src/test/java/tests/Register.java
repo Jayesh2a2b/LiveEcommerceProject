@@ -1,8 +1,6 @@
 package tests;
 
-import java.io.IOException;
 import java.time.Duration;
-import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,11 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -23,46 +18,14 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import base.Base;
-import pages.AboutUsPage;
 import pages.AccountSuccessPage;
-import pages.AddressBookPage;
-import pages.AffiliatePage;
-import pages.BrandsPage;
-import pages.CheckoutPage;
-import pages.ContactUsPage;
-import pages.DeliveryInformationPage;
-import pages.DownloadsPage;
-import pages.FooterOptions;
-import pages.ForgottenPasswordPage;
-import pages.GiftCertificates;
 import pages.HeaderOptions;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.MyAccountInformationPage;
-import pages.MyAccountPage;
-import pages.NewsletterPage;
-import pages.NewsletterSubscriptionPage;
-import pages.OrderHistoryPage;
-import pages.PrivacyPolicyPage;
-import pages.RecurringPaymentsPage;
-import pages.RegisterPage;
-import pages.ReturnsPage;
-import pages.RewardPointsPage;
 import pages.RightColumnOptions;
-import pages.SearchPage;
-import pages.ShoppingCartPage;
-import pages.SiteMapPage;
-import pages.SpecialsOfferPage;
-import pages.TermsAndConditionsPage;
-import pages.TransactionsPage;
-import pages.WishListPage;
 import utils.CommonUtilities;
 
 public class Register extends Base {
 
 	WebDriver driver;
-	String browserName;
-	Properties prop;
 	@BeforeMethod(alwaysRun = true)
 	public void setup() {
 		driver=openBrowserAndApplicationPageUrl();
@@ -433,14 +396,13 @@ public class Register extends Base {
 	@Test
 	public void VerifyRegisteringAnAccountByUsingTheKeyboardKeys() {
 		// Pressing tab key some element highlight and some are not
-		Actions action = new Actions(driver);
-		action.sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).build().perform();
-		action.sendKeys(Keys.ARROW_DOWN).pause(2000).sendKeys(Keys.ENTER).build().perform();
+	actions=getActions(driver);
+		
+//		action.sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).build().perform();
+//		action.sendKeys(Keys.ARROW_DOWN).pause(2000).sendKeys(Keys.ENTER).build().perform();
+		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 23);
 
-		for (int i = 1; i <= 23; i++) {
-			action.sendKeys(Keys.TAB).build().perform();
-		}
-		action.sendKeys(prop.getProperty("FirstName")).sendKeys(Keys.TAB).sendKeys(prop.getProperty("LastName"))
+		actions.sendKeys(prop.getProperty("FirstName")).sendKeys(Keys.TAB).sendKeys(prop.getProperty("LastName"))
 				.sendKeys(Keys.TAB).sendKeys(CommonUtilities.getGenerateNewMail()).sendKeys(Keys.TAB)
 				.sendKeys(prop.getProperty("Telephone")).sendKeys(Keys.TAB).sendKeys(prop.getProperty("PWD"))
 				.sendKeys(Keys.TAB).sendKeys(prop.getProperty("CONPWD")).sendKeys(Keys.TAB).sendKeys(Keys.ARROW_LEFT)

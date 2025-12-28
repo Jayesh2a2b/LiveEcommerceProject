@@ -92,6 +92,7 @@ public class Base {
 	public ChangePasswordPage changePasswordPage;
 	public ProductDisplayPage productDisplayPage;
 	public ProductComparisonPage productComparisonPage;
+	public Actions action;
 
 	public WebDriver openBrowserAndApplicationPageUrl() {
 		try {
@@ -120,10 +121,11 @@ public class Base {
 		return driver.getTitle();
 
 	}
-public String getPageSourceCode()
-{
-	return driver.getPageSource();
-}
+
+	public String getPageSourceCode() {
+		return driver.getPageSource();
+	}
+
 	public String getPageUrl(WebDriver driver) {
 		return driver.getCurrentUrl();
 	}
@@ -135,7 +137,7 @@ public String getPageSourceCode()
 	public void closeBrowser(WebDriver driver) {
 		if (driver != null) { // Prevents NullPointerException
 			driver.quit(); // Close browser & end session
-			//driver = null;
+			// driver = null;
 		}
 	}
 
@@ -159,13 +161,13 @@ public String getPageSourceCode()
 		actions.sendKeys(text).perform();
 		return actions;
 	}
-	public Properties swapPasswords(Properties prop)
-	{
-		String oldPassword=prop.getProperty("OldPWD");
-		String newPassword=prop.getProperty("NewPWD");
+
+	public Properties swapPasswords(Properties prop) {
+		String oldPassword = prop.getProperty("OldPWD");
+		String newPassword = prop.getProperty("NewPWD");
 		prop.setProperty("OldPWD", newPassword);
 		prop.setProperty("NewPWD", oldPassword);
-		prop=CommonUtilities.storePropertyFile(prop);
+		prop = CommonUtilities.storePropertyFile(prop);
 		return prop;
 	}
 }
