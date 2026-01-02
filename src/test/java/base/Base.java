@@ -13,6 +13,7 @@ import org.testng.asserts.SoftAssert;
 import pages.AboutUsPage;
 import pages.AccountLogoutPage;
 import pages.AccountSuccessPage;
+import pages.AddAddressPage;
 import pages.AddressBookPage;
 import pages.AffiliatePage;
 import pages.BrandsPage;
@@ -21,6 +22,7 @@ import pages.CheckoutPage;
 import pages.ContactUsPage;
 import pages.DeliveryInformationPage;
 import pages.DownloadsPage;
+import pages.EditAddressPage;
 import pages.FooterOptions;
 import pages.ForgottenPasswordPage;
 import pages.GiftCertificates;
@@ -29,14 +31,19 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.MyAccountInformationPage;
 import pages.MyAccountPage;
+import pages.MyWishList;
 import pages.NewsletterPage;
 import pages.NewsletterSubscriptionPage;
 import pages.OrderHistoryPage;
+import pages.OrderInformationPage;
+import pages.OrderSuccessPage;
 import pages.PrivacyPolicyPage;
 import pages.ProductComparisonPage;
 import pages.ProductDisplayPage;
+import pages.ProductReturnsPage;
 import pages.RecurringPaymentsPage;
 import pages.RegisterPage;
+import pages.ReturnInformationPage;
 import pages.ReturnsPage;
 import pages.RewardPointsPage;
 import pages.RightColumnOptions;
@@ -47,6 +54,9 @@ import pages.SpecialsOfferPage;
 import pages.TermsAndConditionsPage;
 import pages.TransactionsPage;
 import pages.WishListPage;
+import pages.YourAffiliateInformationPage;
+import pages.YourRewardPointPage;
+import pages.YourTransactionsPage;
 import utils.CommonUtilities;
 
 public class Base {
@@ -92,8 +102,16 @@ public class Base {
 	public ChangePasswordPage changePasswordPage;
 	public ProductDisplayPage productDisplayPage;
 	public ProductComparisonPage productComparisonPage;
-	public Actions action;
-
+	public AddAddressPage addAddressPage;
+	public EditAddressPage editAddressPage;
+	public MyWishList myWishListPage;
+	public YourRewardPointPage yourRewardPointPage;
+	public OrderInformationPage orderInformationPage;
+	public ProductReturnsPage productReturnsPage;
+	public ReturnInformationPage returnInformationPage;
+	public YourTransactionsPage yourTransactionsPage;
+	public YourAffiliateInformationPage yourAffiliateInformationPage;
+	public OrderSuccessPage orderSuccessPage;
 	public WebDriver openBrowserAndApplicationPageUrl() {
 		try {
 			prop = CommonUtilities.loadPropertiesFile();
@@ -169,5 +187,13 @@ public class Base {
 		prop.setProperty("NewPWD", oldPassword);
 		prop = CommonUtilities.storePropertyFile(prop);
 		return prop;
+	}
+
+	public void navigateToPage(String url) {
+		driver.navigate().to(url);
+	}
+	public String getBaseURL()
+	{
+		return prop.getProperty("AppUrl");
 	}
 }

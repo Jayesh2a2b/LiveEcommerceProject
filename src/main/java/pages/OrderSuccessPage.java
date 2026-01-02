@@ -7,21 +7,19 @@ import org.openqa.selenium.support.PageFactory;
 
 import pages.root.RootPage;
 
-public class OrderHistoryPage extends RootPage {
+public class OrderSuccessPage extends RootPage {
 	WebDriver driver;
 
-	public OrderHistoryPage(WebDriver driver) {
+	public OrderSuccessPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "//i[@class='fa fa-eye']")
-	private WebElement viewIcon;
-	public OrderInformationPage clickOnViewIcon()
+	@FindBy(xpath = "//ul[@class='breadcrumb']//a[text()='Success']")
+	private WebElement successBreadcrumb;
+	public boolean didWeNavigateToSuccessPage()
 	{
-		elementUtilities.clickOnElement(viewIcon);
-		return new OrderInformationPage(driver);
+		return elementUtilities.isElementDisplayed(successBreadcrumb);
 	}
-
 }

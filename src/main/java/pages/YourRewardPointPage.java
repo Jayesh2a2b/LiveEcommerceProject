@@ -7,10 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import pages.root.RootPage;
 
-public class DownloadsPage extends RootPage {
+public class YourRewardPointPage extends RootPage {
 	WebDriver driver;
 
-	public DownloadsPage(WebDriver driver) {
+	public YourRewardPointPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

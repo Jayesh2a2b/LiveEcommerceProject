@@ -7,21 +7,21 @@ import org.openqa.selenium.support.PageFactory;
 
 import pages.root.RootPage;
 
-public class OrderHistoryPage extends RootPage {
+public class EditAddressPage extends RootPage {
 	WebDriver driver;
 
-	public OrderHistoryPage(WebDriver driver) {
+	public EditAddressPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+
 	}
 
-	@FindBy(xpath = "//i[@class='fa fa-eye']")
-	private WebElement viewIcon;
-	public OrderInformationPage clickOnViewIcon()
+	@FindBy(xpath = "//input[@class='btn btn-primary']")
+	private WebElement continueButton;
+	public AddressBookPage clickOnContinueButton()
 	{
-		elementUtilities.clickOnElement(viewIcon);
-		return new OrderInformationPage(driver);
+		elementUtilities.clickOnElement(continueButton);
+		return new AddressBookPage(driver);
 	}
-
 }

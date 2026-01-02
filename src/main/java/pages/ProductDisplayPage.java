@@ -20,6 +20,10 @@ public class ProductDisplayPage extends RootPage {
 	private WebElement productReviews;
 	@FindBy(id = "button-cart")
 	private WebElement addToCartButton;
+	public void clickOnAddToCartButton()
+	{
+		elementUtilities.clickOnElement(addToCartButton);
+	}
 	public boolean isAddToCartOptionAvailableOnPage()
 	{
 		return elementUtilities.isElementDisplayed(addToCartButton );

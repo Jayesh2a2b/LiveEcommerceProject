@@ -14,11 +14,23 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.Base;
+import pages.AddAddressPage;
+import pages.EditAddressPage;
 import pages.FooterOptions;
 import pages.HeaderOptions;
+import pages.LoginPage;
+import pages.MyAccountPage;
+import pages.MyWishList;
+import pages.OrderInformationPage;
+import pages.OrderSuccessPage;
 import pages.ProductComparisonPage;
 import pages.ProductDisplayPage;
+import pages.ProductReturnsPage;
+import pages.ReturnInformationPage;
 import pages.SearchPage;
+import pages.YourAffiliateInformationPage;
+import pages.YourRewardPointPage;
+import pages.YourTransactionsPage;
 import utils.CommonUtilities;
 
 public class Search extends Base {
@@ -276,7 +288,89 @@ public class Search extends Base {
 
 	@Test
 	public void VerifySearchTextboxFieldAndTheButtonHavingSearchIconAreDisplayedOnAllThePageOfTheApplication() {
+		headerOptions = new HeaderOptions(driver);
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateToPage(getBaseURL()+prop.getProperty("RegisterPageURL"));
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateToPage(getBaseURL()+prop.getProperty("LoginPage"));
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateToPage(getBaseURL()+prop.getProperty("ShoppingCartPage"));
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateToPage(getBaseURL()+prop.getProperty("ContactUsPage"));
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateToPage(getBaseURL()+prop.getProperty("WishListPage"));
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateToPage(getBaseURL()+prop.getProperty("LogoutPage"));
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateToPage(getBaseURL()+prop.getProperty("LoginPage"));
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
 
+		loginPage = new LoginPage(driver);
+		myAccountPage = loginPage.loginIntoApplication(prop.getProperty("ValidEmail"), prop.getProperty("PWD"));
+		Assert.assertTrue(myAccountPage.didWeNavigateToMYAccountPage());
+		myAccountPage.clickOnEditYourAccountInformation();
+		navigateToPage(getBaseURL()+prop.getProperty("MyAccountInformationPage"));
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateBackInBrowser(driver);
+		myAccountPage.clickOnChangeYourPasswordOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		navigateBackInBrowser(driver);
+		addressBookPage = myAccountPage.clickOnModifyYourAddressBookEntries();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		addAddressPage = addressBookPage.clickOnNewAddressButton();
+		addAddressPage.addAddress(prop.getProperty("FirstName"), prop.getProperty("LastName"),
+				prop.getProperty("Address"), prop.getProperty("City"), prop.getProperty("PostCode"),
+				prop.getProperty("CountryName"), prop.getProperty("StateName"));
+		Assert.assertTrue(addressBookPage.isPageLevelSuccessMsgAvailableOnPage());
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		editAddressPage = addressBookPage.clickOnEditOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		editAddressPage.clickOnContinueButton();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		headerOptions.clickOnMyAccountOptionInDropdownMenu();
+		Assert.assertTrue(myAccountPage.didWeNavigateToMYAccountPage());
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		myWishListPage = myAccountPage.clickOnModifyYourWishListOption();
+
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		Assert.assertTrue(myWishListPage.didWeNavigateToMyWishListPage());
+		myAccountPage = myWishListPage.clickOnContinueButton();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		orderHistoryPage = myAccountPage.clickOnViewYourOrderHistoryOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		orderInformationPage = orderHistoryPage.clickOnViewIcon();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		orderHistoryPage = orderInformationPage.clickOnContinueButton();
+		myAccountPage = headerOptions.clickOnMyAccountOptionInDropdownMenu();
+		downloadsPage = myAccountPage.clickOnDownloadsOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		myAccountPage = downloadsPage.clickOnContinueButton();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		yourRewardPointPage = myAccountPage.clickOnYourRewardPointOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		myAccountPage = yourRewardPointPage.clickOnContinueButton();
+		productReturnsPage = myAccountPage.clickOnViewYourReturnRequestsOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		returnInformationPage = productReturnsPage.clickOnViewOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		productReturnsPage=returnInformationPage.clickOnContinueButton();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		myAccountPage=productReturnsPage.clickOnContinueButton();
+		yourTransactionsPage = myAccountPage.clickOnYourTransactions();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		myAccountPage=yourTransactionsPage.clickOnContinueButton();
+		recurringPaymentsPage=myAccountPage.clickOnRecurringPaymentsOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+		myAccountPage=recurringPaymentsPage.clickOnContinueButton();
+		yourAffiliateInformationPage = myAccountPage.clickOnRegisterForAnAffiliateAccountOption();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+//		yourAffiliateInformationPage.enterChequePayeeNameInChequePayeeNameField(prop.getProperty("FirstName"));
+//		yourAffiliateInformationPage.selectAgreeOption();
+//		yourAffiliateInformationPage.clickOnContinueButton();
+		newsletterSubscriptionPage=myAccountPage.clickOnSubscibeAndUnsubscribeToNewsletterLinkOnMyaccountpage();
+		Assert.assertTrue(headerOptions.isSearchButtonAndSearchFieldAvilableOnPage());
+
+		newsletterSubscriptionPage.IsNewsletterInBreadcrumbAvailableOnNewsletterSubscriptionPage();
 	}
 
 	@Test
@@ -309,7 +403,7 @@ public class Search extends Base {
 		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ARROW_DOWN, 1);
 		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 30);
 		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ARROW_DOWN, 2);
-		//actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
+		// actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
 		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.TAB, 31);
 		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
 		productDisplayPage = new ProductDisplayPage(driver);
@@ -325,17 +419,34 @@ public class Search extends Base {
 		actions = clickKeyboardkeyMultipleTimes(actions, driver, Keys.ENTER, 1);
 		Assert.assertTrue(searchPage.isProductComparisonStatusAvailableOnPage());
 
+	}
+
+	@Test
+	public void VerifyNavigatingToSearchPageFromTheSiteMapPage() {
+		footerOptions = new FooterOptions(driver);
+		siteMapPage = footerOptions.clickOnSiteMap();
+		Assert.assertTrue(siteMapPage.didWeNavigateToSiteMapPage());
+		searchPage = siteMapPage.clickOnSearchOptionInSiteMapPage();
+		Assert.assertTrue(searchPage.didWeNavigateToSearchPage());
 
 	}
 	@Test
-	public void VerifyNavigatingToSearchPageFromTheSiteMapPage()
+	public void VerifySearchProductToCheckoutOgProduct()
 	{
-		footerOptions=new FooterOptions(driver);
-		siteMapPage=footerOptions.clickOnSiteMap();
-		Assert.assertTrue(siteMapPage.didWeNavigateToSiteMapPage());
-		searchPage=siteMapPage.clickOnSearchOptionInSiteMapPage();
-		Assert.assertTrue(searchPage.didWeNavigateToSearchPage());
-		
-		
+		loginPage=headerOptions.navigateToLoginPage();
+		loginPage.loginIntoApplication(prop.getProperty("ValidEmail"), prop.getProperty("PWD"));
+		headerOptions.enterSearchProductIntoSearchField(prop.getProperty("ExistingProduct"));
+		searchPage=headerOptions.clickOnSearchButton();
+		productDisplayPage=searchPage.clickOnProductOneImage();
+		productDisplayPage.clickOnAddToCartButton();
+		checkoutPage=headerOptions.selectOnCheckoutHeaderOption();
+		Assert.assertTrue(checkoutPage.didWeNavigateToCheckoutPage());
+		checkoutPage.clickOnBillingDetaisContinueButton();
+		checkoutPage.clickOnDeliveryDetailsContinueButton();
+		checkoutPage.clickOnDeliveryMethodContinueButton();
+		checkoutPage.clickOnAgreeOption();
+		checkoutPage.clickOnPaymentMethodContinueButton();
+		orderSuccessPage = checkoutPage.clickOnConfirmOrderButton();
+		Assert.assertTrue(orderSuccessPage.didWeNavigateToSuccessPage());
 	}
 }

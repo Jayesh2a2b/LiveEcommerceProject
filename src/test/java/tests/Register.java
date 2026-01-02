@@ -141,9 +141,7 @@ public class Register extends Base {
 	@Test
 	public void VerifyDiffWaysOfNavigatingToRegisterAccountPage() {
 		Assert.assertTrue(registerPage.didWeNavigateToRegisterPage());
-//	driver=registerPage.getDriver();
-//	headerOptions=new HeaderOptions(driver);
-		headerOptions = new HeaderOptions(registerPage.getDriver());// one line perform by passing
+		headerOptions = new HeaderOptions(registerPage.getDriver());
 		headerOptions.clickOnMyAccountDropmenu();
 		loginPage = headerOptions.clickOnLoginOption();
 		loginPage.clickOnContinueButton();

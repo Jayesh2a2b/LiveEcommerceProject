@@ -34,9 +34,9 @@ public class HeaderOptions extends RootPage {
 
 	@FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[text()='Login']")
 	private WebElement Login;
-	public boolean isLoginOptionAvailableInDropMenu()
-	{
-	return	elementUtilities.isElementDisplayed(Login);
+
+	public boolean isLoginOptionAvailableInDropMenu() {
+		return elementUtilities.isElementDisplayed(Login);
 	}
 
 	public LoginPage clickOnLoginOption() {
@@ -119,10 +119,15 @@ public class HeaderOptions extends RootPage {
 	@FindBy(xpath = "//button[@class='btn btn-default btn-lg']")
 	private WebElement searchButton;
 
+	public boolean isSearchButtonAvailableOnPage() {
+		return elementUtilities.isElementDisplayed(searchButton);
+	}
+
 	public SearchPage clickOnSearchButton() {
 		elementUtilities.clickOnElement(searchButton);
 		return new SearchPage(driver);
 	}
+
 	@FindBy(linkText = "Logout")
 	private WebElement logoutOption;
 
@@ -130,43 +135,62 @@ public class HeaderOptions extends RootPage {
 		elementUtilities.clickOnElement(logoutOption);
 		return new AccountLogoutPage(driver);
 	}
-    public LoginPage getLoginPage()
-    {
-    	return new LoginPage(driver);
-    }
+
+	public LoginPage getLoginPage() {
+		return new LoginPage(driver);
+	}
+
 	public LoginPage navigateToLoginPage() {
 		clickOnMyAccountDropmenu();
 		return clickOnLoginOption();
 	}
-	@FindBy(xpath="//ul[@class='dropdown-menu dropdown-menu-right']//a[text()='Logout']")
+
+	@FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']//a[text()='Logout']")
 	private WebElement logoutOptionInDropdown;
-	public AccountLogoutPage clickOnLogoutOptionInDropMenu()
-	{
+
+	public AccountLogoutPage clickOnLogoutOptionInDropMenu() {
 		elementUtilities.clickOnElement(logoutOptionInDropdown);
 		return new AccountLogoutPage(driver);
 	}
-	public boolean isLogoutOptionAvailableInDropMenu()
-	{
+
+	public boolean isLogoutOptionAvailableInDropMenu() {
 		return elementUtilities.isElementDisplayed(logoutOptionInDropdown);
 	}
-	public void logoutFromDropdownMenu()
-	{
+
+	public void logoutFromDropdownMenu() {
 		clickOnMyAccountDropmenu();
 		clickOnLogoutOptionInDropMenu();
-		
+
 	}
-	public AccountLogoutPage getAccountLogoutPage()
-	{
+
+	public AccountLogoutPage getAccountLogoutPage() {
 		return new AccountLogoutPage(driver);
 	}
-	@FindBy(xpath="//input[@name='search']")
+
+	@FindBy(xpath = "//input[@name='search']")
 	private WebElement searchField;
-	public void enterSearchProductIntoSearchField(String productName)
-	{
+
+	public boolean isSearchFieldAvailableOnPage() {
+		return elementUtilities.isElementDisplayed(searchField);
+	}
+
+	public void enterSearchProductIntoSearchField(String productName) {
 		elementUtilities.enterTextIntoElement(searchField, productName);
 	}
-public String getSearchBoxFieldPlaceholderText()
-{
-	return elementUtilities.getElementDomAttribute(searchField, "placeholder");
-}
+
+	public String getSearchBoxFieldPlaceholderText() {
+		return elementUtilities.getElementDomAttribute(searchField, "placeholder");
+	}
+
+	public boolean isSearchButtonAndSearchFieldAvilableOnPage() {
+		return isSearchFieldAvailableOnPage() && isSearchButtonAvailableOnPage();
+	}
+	@FindBy(xpath="//ul[@class='dropdown-menu dropdown-menu-right']//a[text()='My Account']")
+	private WebElement myAccountDropdownOption;
+	public MyAccountPage clickOnMyAccountOptionInDropdownMenu()
+	{
+		elementUtilities.clickOnElement(myAccountDropMenu);
+		elementUtilities.clickOnElement(myAccountDropdownOption);
+		return new MyAccountPage(driver);
+	}
 }

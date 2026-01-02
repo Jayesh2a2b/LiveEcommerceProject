@@ -68,7 +68,7 @@ public class Logout extends Base {
 	@Test(priority = 3)
 	public void VerifyLogoutOptionIsNotDisplayedUnderMyAccountMenuBeforeLoggingIn() {
 		headerOptions.clickOnMyAccountDropmenu();
-		Assert.assertTrue(headerOptions.isLogoutOptionAvailableInDropMenu());
+		Assert.assertFalse(headerOptions.isLogoutOptionAvailableInDropMenu());
 
 	}
 

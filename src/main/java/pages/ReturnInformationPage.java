@@ -7,20 +7,20 @@ import org.openqa.selenium.support.PageFactory;
 
 import pages.root.RootPage;
 
-public class DownloadsPage extends RootPage {
+public class ReturnInformationPage extends RootPage {
 	WebDriver driver;
 
-	public DownloadsPage(WebDriver driver) {
+	public ReturnInformationPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "//div[@class='pull-right']//a[@class='btn btn-primary']")
+	@FindBy(xpath = "//div[@class='pull-right']//a[text()='Continue']")
 	private WebElement continueButton;
-	public MyAccountPage clickOnContinueButton()
-	{
+
+	public ProductReturnsPage clickOnContinueButton() {
 		elementUtilities.clickOnElement(continueButton);
-		return new MyAccountPage(driver);
+		return new ProductReturnsPage(driver);
 	}
 }
