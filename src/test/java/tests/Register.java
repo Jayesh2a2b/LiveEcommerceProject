@@ -1,6 +1,7 @@
 package tests;
 
 import java.time.Duration;
+import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -22,6 +23,7 @@ import pages.AccountSuccessPage;
 import pages.HeaderOptions;
 import pages.RightColumnOptions;
 import utils.CommonUtilities;
+import utils.MyXLSReader;
 
 public class Register extends Base {
 
@@ -470,13 +472,13 @@ public class Register extends Base {
 
 	@Test(dataProvider = "password supplier")
 	public void VerifyWhetherThePasswordFieldsInTheRegisterAccountPageAreFollowingPasswordComplexityStandards(
-			String pwd) {
+			HashMap<String,String> map) {
 		registerPage.enterFirstName(prop.getProperty("FirstName"));
 		registerPage.enterLastName(prop.getProperty("LastName"));
 		registerPage.enterEmail(CommonUtilities.getGenerateNewMail());
 		registerPage.enterTelephone(prop.getProperty("Telephone"));
-		registerPage.enterPassword(pwd);
-		registerPage.enterConfirmPassword(pwd);
+		registerPage.enterPassword(map.get("Passwords"));
+		registerPage.enterConfirmPassword(map.get("Passwords"));
 		registerPage.clickOnPrivacyPolicy();
 		registerPage.clickOnContinueButton();
 		String expectedWarning = "Enter Password Which Follow Password Complexity Standard!";
@@ -493,7 +495,8 @@ public class Register extends Base {
 
 	@DataProvider(name = "password supplier")
 	public Object[][] supplyPasswords() {
-		Object[][] data = { { "12345" }, { "abcdefghi" }, { "abcd1234" }, { "abcd123$" }, { "ABCD456#" } };
+		MyXLSReader myXLSReader=new MyXLSReader("\\src\\test\\resources\\TutorialsNinja.xlsx");
+		Object[][] data = CommonUtilities.getTestData(myXLSReader, "PasswordFieldFollowComplexityStandard", "Sheet1");
 		return data;
 	}
 
