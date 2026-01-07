@@ -1,12 +1,6 @@
 package tests;
 
-import java.io.IOException;
-import java.time.Duration;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,7 +10,7 @@ import base.Base;
 import pages.HeaderOptions;
 
 public class Logout extends Base {
-	WebDriver driver;
+	public WebDriver driver;
 
 	@BeforeMethod(alwaysRun = true)
 	public void setup() {

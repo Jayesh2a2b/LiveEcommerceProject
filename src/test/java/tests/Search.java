@@ -1,40 +1,23 @@
 package tests;
 
-import static org.testng.Assert.assertEquals;
-
-import java.time.Duration;
-import java.util.List;
-
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.Base;
-import pages.AddAddressPage;
-import pages.EditAddressPage;
 import pages.FooterOptions;
 import pages.HeaderOptions;
 import pages.LoginPage;
-import pages.MyAccountPage;
-import pages.MyWishList;
-import pages.OrderInformationPage;
-import pages.OrderSuccessPage;
 import pages.ProductComparisonPage;
 import pages.ProductDisplayPage;
-import pages.ProductReturnsPage;
-import pages.ReturnInformationPage;
 import pages.SearchPage;
-import pages.YourAffiliateInformationPage;
-import pages.YourRewardPointPage;
-import pages.YourTransactionsPage;
 import utils.CommonUtilities;
 
 public class Search extends Base {
-	WebDriver driver;
+	public WebDriver driver;
 
 	@BeforeMethod
 	public void setup() {
@@ -431,7 +414,7 @@ public class Search extends Base {
 
 	}
 	@Test
-	public void VerifySearchProductToCheckoutOgProduct()
+	public void VerifySearchProductToCheckoutProduct()
 	{
 		loginPage=headerOptions.navigateToLoginPage();
 		loginPage.loginIntoApplication(prop.getProperty("ValidEmail"), prop.getProperty("PWD"));

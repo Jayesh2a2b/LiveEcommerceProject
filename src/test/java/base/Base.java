@@ -60,7 +60,7 @@ import pages.YourTransactionsPage;
 import utils.CommonUtilities;
 
 public class Base {
-	WebDriver driver;
+	public WebDriver driver;
 	public Properties prop;
 	public String browserName;
 	public HeaderOptions headerOptions;

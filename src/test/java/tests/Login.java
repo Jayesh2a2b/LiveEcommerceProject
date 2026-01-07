@@ -1,7 +1,5 @@
 package tests;
 
-import java.time.Duration;
-
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -10,15 +8,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.Base;
-import pages.AccountLogoutPage;
-import pages.ChangePasswordPage;
 import pages.HeaderOptions;
 import pages.LoginPage;
 import pages.MyAccountPage;
-import utils.CommonUtilities;
 
 public class Login extends Base {
-	WebDriver driver;
+	public WebDriver driver;
 
 	@BeforeMethod(alwaysRun = true)
 	public void setup() {

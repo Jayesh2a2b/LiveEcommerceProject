@@ -1,5 +1,7 @@
 package utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +10,12 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,6 +37,19 @@ public class ElementUtilities {
 			}
 
 		}
+	}
+	public String captureScreenshotAndReturnPath(String testName,WebDriver driver)
+	{
+		TakesScreenshot ts = (TakesScreenshot)driver;
+		File srcScreenshot=ts.getScreenshotAs(OutputType.FILE);
+		String destScreenshotPath = System.getProperty("user.dir")+"\\Screenshots\\"+testName+".png";
+		try {
+			FileHandler.copy(srcScreenshot, new File(destScreenshotPath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return destScreenshotPath;
+
 	}
 
 	public String getTextFromElement(WebElement element) {
