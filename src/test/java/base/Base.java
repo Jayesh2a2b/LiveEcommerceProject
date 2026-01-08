@@ -1,6 +1,8 @@
 package base;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Properties;
 import org.openqa.selenium.Keys;
@@ -60,7 +62,7 @@ import pages.YourTransactionsPage;
 import utils.CommonUtilities;
 
 public class Base {
-	public WebDriver driver;
+    WebDriver driver;
 	public Properties prop;
 	public String browserName;
 	public HeaderOptions headerOptions;
@@ -112,6 +114,9 @@ public class Base {
 	public YourTransactionsPage yourTransactionsPage;
 	public YourAffiliateInformationPage yourAffiliateInformationPage;
 	public OrderSuccessPage orderSuccessPage;
+	
+	
+	
 	public WebDriver openBrowserAndApplicationPageUrl() {
 		try {
 			prop = CommonUtilities.loadPropertiesFile();
@@ -128,12 +133,15 @@ public class Base {
 			driver = new EdgeDriver();
 		}
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+	    driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.manage().deleteAllCookies();
 		driver.get(prop.getProperty("AppUrl"));
 		return driver;
 
 	}
+	
+
 
 	public String getPageTitle(WebDriver driver) {
 		return driver.getTitle();

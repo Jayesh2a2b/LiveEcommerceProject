@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import base.Base;
 import pages.HeaderOptions;
 
-public class Logout extends Base {
+public class LogoutTest extends Base {
 	public WebDriver driver;
 
 	@BeforeMethod(alwaysRun = true)

@@ -16,7 +16,7 @@ import pages.ProductDisplayPage;
 import pages.SearchPage;
 import utils.CommonUtilities;
 
-public class Search extends Base {
+public class SearchTest extends Base {
 	public WebDriver driver;
 
 	@BeforeMethod

@@ -12,7 +12,7 @@ import pages.HeaderOptions;
 import pages.LoginPage;
 import pages.MyAccountPage;
 
-public class Login extends Base {
+public class LoginTest extends Base {
 	public WebDriver driver;
 
 	@BeforeMethod(alwaysRun = true)

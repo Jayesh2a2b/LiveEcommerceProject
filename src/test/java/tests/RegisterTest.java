@@ -24,7 +24,7 @@ import pages.RightColumnOptions;
 import utils.CommonUtilities;
 import utils.MyXLSReader;
 
-public class Register extends Base {
+public class RegisterTest extends Base {
 	public WebDriver driver;
 
 	@BeforeMethod(alwaysRun = true)
